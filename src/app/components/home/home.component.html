@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+  <html>
+    <p-toast position="top-center" key="tc"></p-toast>
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+        <title>GNALAM</title>
+    </head>
+
+    <body>
+      <div>
+        <p-table  #dt  [value]="getdetails"  [paginator]="true" [rows]="8" [responsive]="true" [rowsPerPageOptions]="[8,10,20]" [(first)]="first">
+          <ng-template pTemplate="caption">
+              <div class="row p-3">
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12 " style="text-align: left">
+                <button pButton type="button"class="ui-button-rounded ui-button-success" label="Add" (click)="add()" icon="pi pi-arrow-circle-right"></button>
+              </div>
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12 " style="text-align: right">
+                <h3>TABLE VIEW</h3>
+              </div>
+
+              </div>
+          </ng-template>
+          <ng-template pTemplate="header">
+              <tr>
+                  <th>ID</th>
+                  <th>EMAIL</th>
+                  <th>FIRSTNAME</th>
+                  <th>LASTNAME</th>
+                  <th>VIEW</th>
+                  <th>DELETE</th>
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-rowData  >
+              <tr>
+                  <td>{{rowData.id}} </td>
+                  <td>{{rowData.email}} </td>
+                  <td>{{rowData.first_name}} </td>
+                  <td>{{rowData.last_name}} </td>
+                  <td >
+                      <button pButton type="button"class="ui-button-rounded ui-button-info" label="Update" (click)="updateme(rowData)" icon="pi pi-eye"></button>
+                  </td>
+                  <td >
+                      <button pButton type="button"class="ui-button-rounded ui-button-danger" label="Delete" (click)="deleteme(rowData)" icon="pi pi-money-bill"></button>
+                  </td>
+              </tr>
+          </ng-template>
+
+      </p-table>
+      </div>
+    <div class="row p-3">
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12 ">
+        <h3>CARD VIEW</h3>
+        <button pButton type="button"class="ui-button-rounded ui-button-success" label="Add" (click)="add()" icon="pi pi-arrow-circle-right"></button>
+        <p-card *ngFor="let x of getdetails" header="{{x.id }}" subheader="{{x.first_name}} DETAILS" [style]="{width: '360px'}" styleClass="ui-card-shadow">
+          <p-header>
+
+          </p-header>
+          <p-card>
+          EMAIL     : {{x.email}}       <br>
+          FIRSTNAME : {{x.first_name}}  <br>
+          LASTNAME  : {{x.last_name}}   <br>
+          FULLNAME  : {{x.first_name}}{{x.last_name}}
+          <p-footer>
+            <button pButton type="button"class="ui-button-rounded ui-button-info" label="Update" (click)="updateme(x)" icon="pi pi-eye"></button>
+            <button pButton type="button"class="ui-button-rounded ui-button-danger" label="Delete" (click)="deleteme(x)" icon="pi pi-money-bill"></button>
+          </p-footer>
+          </p-card>
+        </p-card>
+      </div>
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12 ">
+        <h3>LIST VIEW</h3>
+        <button pButton type="button"class="ui-button-rounded ui-button-success" label="Add" (click)="add()" icon="pi pi-arrow-circle-right"></button>
+        <ul class="list-group"  >
+          <li class="list-group-item" *ngFor="let x of getdetails" (dblclick)="updateme(x)">
+              {{ x.id }}
+              {{x.first_name}}
+              {{x.last_name  + " "}}
+              {{  x.email}}
+              <button pButton type="button"class="ui-button-rounded ui-button-info" label="Update" (click)="updateme(x)" icon="pi pi-eye"></button>
+              <button pButton type="button"class="ui-button-rounded ui-button-danger" label="Delete" (click)="deleteme(x)" icon="pi pi-money-bill"></button>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <p-dialog header="EDIT ME" [(visible)]="displayMaximizable" [modal]="true" [style]="{width: '50vw'}" [maximizable]="true" [baseZIndex]="10000"
+      [draggable]="false" [resizable]="false">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 p-3">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 p-3">
+              <h4 ><strong>ID</strong></h4>
+              <input  id="inp1" type="number" size="30" placeholder="Enter Your ID"  pInputText name="homevo.id" [(ngModel)]="homevo.id">
+            </div>
+
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 p-3">
+                <h4 ><strong>FIRSTNAME</strong></h4>
+                <input  id="inp2" type="text" size="30" placeholder="Enter Your FirstName"  pInputText name="homevo.first_name" [(ngModel)]="homevo.first_name">
+            </div>
+
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 p-3">
+              <h4 ><strong>LAST NAME</strong></h4>
+              <input  id="inp3" type="text" size="30" placeholder="Enter Your LastName"  pInputText name="homevo.last_name" [(ngModel)]="homevo.last_name">
+            </div>
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 p-3">
+              <h4 ><strong>EMAIL</strong></h4>
+              <input  id="inp4" type="text" size="30" placeholder="Enter Your Email ID"  pInputText name="homevo.email" [(ngModel)]="homevo.email">
+            </div>
+
+        </div>
+      <p-footer>
+        <button type="button" pButton icon="pi pi-check" *ngIf="index !== null" (click)="update(homevo)" label="UPDATE" class="ui-button-rounded ui-button-info"></button>
+        <button type="button" pButton icon="pi pi-check" *ngIf="index == null" (click)="save(homevo)" label="SAVE" class="ui-button-rounded ui-button-info"></button>
+        <button type="button" pButton icon="pi pi-times" (click)="closepopup()" label="CLOSE" class="ui-button-rounded ui-button-danger"></button>
+      </p-footer>
+    </p-dialog>
+
+    </body>
+  </html>
+
+
+

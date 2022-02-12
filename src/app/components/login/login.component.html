@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <p-toast position="top-center" key="tc"></p-toast>
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+        <title>GNALAM</title>
+    </head>
+
+  <body>
+  <div class="login-card ">
+  <form class="form-signin"  [formGroup]="signinform" (ngSubmit)="onClick()">
+  <div class="ui-inputgroup my-3">
+      <span class="ui-inputgroup-addon"><i class="pi pi-user"></i></span>
+      <input class="form-control" type="text" size="30" formControlName="username"  pInputText placeholder="Email address" name="username" >
+  </div>
+  <div class="ui-inputgroup my-3">
+      <span class="ui-inputgroup-addon"><i class="pi pi-lock-open"></i></span>
+      <input class="form-control" type="password" id="password-field" formControlName="password"  pInputText placeholder="Password"  name="password" required="" >
+      <span class="ui-inputgroup-addon" ><i  id="pass-status" class="pi pi-eye" style="line-height: 1.25;" (click)="viewPassword1()"></i></span>
+  </div>
+  <button pButton type="submit"  label="Signin"  class="ui-button-rounded" title="Alt + L" accesskey="L"></button>
+  </form>
+  </div>
+  </body>
+</html>
